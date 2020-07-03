@@ -14,6 +14,9 @@
 # Dependency directories
 vendor/
 
+target/
+data/
+
 # macOS
 .DS_Store
 ._*
@@ -25,4 +28,3 @@ vendor/
 .vscode
 
 *.csv
-*.xls*

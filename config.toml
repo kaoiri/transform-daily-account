@@ -1,0 +1,11 @@
+[filename]
+zitem = "data/zitem.csv"
+ztime = "data/ztime.csv"
+ztotal = "data/ztotal.csv"
+ttotal = "data/ttotal.csv"
+template = "template.xlsx"
+output = "日計.xlsx"
+
+[exclusion]
+tables = [1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 16, 41, 42, 43, 44]
+keywords = ["テイク", "仕出", "TO", "ＴＯ", "イベント", "店頭", "持ち帰り", "宴会", "法事", "葬儀"]
