@@ -19,7 +19,6 @@ type Config struct {
 		Ztotal   string `toml:"ztotal"`
 		Ttotal   string `toml:"ttotal"`
 		Template string `toml:"template"`
-		Output   string `toml:"output"`
 	}
 	Exclusion struct {
 		Tables   []int16  `toml:"tables"`
@@ -63,7 +62,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue("Sheet1", "E1", date)
+	output.SetCellValue("Sheet1", "E1", date.Display)
 
 	zt, err := ztotals.Get(1)
 	if err != nil {
@@ -257,15 +256,23 @@ func main() {
 
 	output.SetCellValue("Sheet1", "F5", check)
 
-	if err := output.SaveAs(filepath.Join(path, config.Filename.Output)); err != nil {
+	storeName := output.GetCellValue("Sheet1", "C1")
+	if err := output.SaveAs(filepath.Join(path, fmt.Sprintf("%s %s 日計.xlsx", date.Raw, storeName))); err != nil {
 		panic(err)
 	}
 }
 
-func getDate(path string) (string, error) {
+type Date struct {
+	Raw     string
+	Display string
+}
+
+func getDate(path string) (Date, error) {
+	var date Date
+
 	file, err := os.Open(path)
 	if err != nil {
-		return "", err
+		return date, err
 	}
 	defer file.Close()
 
@@ -274,15 +281,17 @@ func getDate(path string) (string, error) {
 	var line []string
 	line, err = reader.Read()
 	if err != nil {
-		return "", err
+		return date, err
 	}
 
-	res, err := formatDate(strings.TrimSpace(line[3]))
+	date.Raw = strings.TrimSpace(line[3])
+	res, err := formatDate(date.Raw)
 	if err != nil {
-		return "", err
+		return date, err
 	}
+	date.Display = res
 
-	return res, nil
+	return date, nil
 }
 
 func formatDate(s string) (string, error) {
