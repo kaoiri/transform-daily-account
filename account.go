@@ -117,3 +117,14 @@ func TotalWithKeywords(zs Zitems, keywords []string) int32 {
 	}
 	return res
 }
+
+func TotalWithoutKeywords(zs Zitems, keywords []string) int32 {
+	var res int32
+	res = 0
+	for _, z := range zs {
+		if !wordMatches(keywords, z.Name) {
+			res += z.Unit * int32(z.AMCount+z.PMCount)
+		}
+	}
+	return res
+}
