@@ -219,6 +219,7 @@ func main() {
 	temp = zt.Total - temp
 	fmt.Print(temp)
 	output.SetCellValue("Sheet1", "F7", temp)
+	f7 := temp
 	check += temp
 
 	temp = TotalLunchEatIn(zitems, config.Exclusion.KeywordsFromEatin)
@@ -265,7 +266,7 @@ func main() {
 		panic(err)
 	}
 	temp = TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
-	temp = zt.Total - temp
+	temp = zt.Total - temp - f7
 	output.SetCellValue("Sheet1", "F17", temp)
 	check += temp
 
