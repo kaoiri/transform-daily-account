@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+	"math"
 
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/BurntSushi/toml"
@@ -22,7 +23,8 @@ type Config struct {
 	}
 	Exclusion struct {
 		Tables   []int16  `toml:"tables"`
-		Keywords []string `toml:"keywords"`
+		KeywordsFromEatin []string `toml:"keywords_from_eatin"`
+		KeywordsFromCatering []string `toml:"keywords_from_catering"`
 	}
 }
 
@@ -55,8 +57,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	check := int32(0)
 
 	date, err := getDate(filepath.Join(path, config.Filename.Ttotal))
 	if err != nil {
@@ -107,7 +107,7 @@ func main() {
 	}
 	output.SetCellValue("Sheet1", "D22", zt.OrderCount)
 	output.SetCellValue("Sheet1", "F22", zt.Total)
-	check -= zt.Total
+	check := 0 - zt.Total
 
 	zt, err = ztotals.Get(99)
 	if err != nil {
@@ -209,17 +209,24 @@ func main() {
 	output.SetCellValue("Sheet1", "F6", zt.Total)
 	check += zt.Total
 
-	zt, err = ztotals.Get(80)
+	zt, err = ztotals.Get(307)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue("Sheet1", "F7", zt.Total)
+	temp := TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
+	temp = int32(math.Trunc(float64(temp) / 13.5))
+	fmt.Print(temp)
+	temp = zt.Total - temp
+	fmt.Print(temp)
+	output.SetCellValue("Sheet1", "F7", temp)
+	f7 := temp
+	check += temp
 
-	temp := TotalLunchEatIn(zitems, config.Exclusion.Keywords)
+	temp = TotalLunchEatIn(zitems, config.Exclusion.KeywordsFromEatin)
 	output.SetCellValue("Sheet1", "F8", temp)
 	check += temp
 
-	temp = TotalDinnerEatIn(zitems, config.Exclusion.Keywords)
+	temp = TotalDinnerEatIn(zitems, config.Exclusion.KeywordsFromEatin)
 	output.SetCellValue("Sheet1", "F9", temp)
 	check += temp
 
@@ -253,6 +260,15 @@ func main() {
 	}
 	output.SetCellValue("Sheet1", "F16", zt.Total)
 	check += zt.Total
+
+	zt, err = ztotals.Get(306)
+	if err != nil {
+		panic(err)
+	}
+	temp = TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
+	temp = zt.Total - temp - f7
+	output.SetCellValue("Sheet1", "F17", temp)
+	check += temp
 
 	output.SetCellValue("Sheet1", "F5", check)
 
