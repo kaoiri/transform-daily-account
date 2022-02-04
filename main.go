@@ -3,11 +3,11 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
-	"math"
 
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/BurntSushi/toml"
@@ -22,8 +22,8 @@ type Config struct {
 		Template string `toml:"template"`
 	}
 	Exclusion struct {
-		Tables   []int16  `toml:"tables"`
-		KeywordsFromEatin []string `toml:"keywords_from_eatin"`
+		Tables               []int16  `toml:"tables"`
+		KeywordsFromEatin    []string `toml:"keywords_from_eatin"`
 		KeywordsFromCatering []string `toml:"keywords_from_catering"`
 	}
 }
@@ -70,8 +70,12 @@ func main() {
 	}
 	output.SetCellValue("Sheet1", "A3", zt.GuestCount)
 
-	output.SetCellValue("Sheet1", "A8", CountLunchOrder(ttotals, config.Exclusion.Tables))
-	output.SetCellValue("Sheet1", "A9", CountDinnerOrder(ttotals, config.Exclusion.Tables))
+	orders := CountLunchOrder(ttotals, config.Exclusion.Tables)
+	output.SetCellValue("Sheet1", "A8", orders)
+	output.SetCellValue("Sheet1", "K2", orders)
+	orders = CountDinnerOrder(ttotals, config.Exclusion.Tables)
+	output.SetCellValue("Sheet1", "A9", orders)
+	output.SetCellValue("Sheet1", "M2", orders)
 
 	zt, err = ztotals.Get(112)
 	if err != nil {
@@ -106,7 +110,9 @@ func main() {
 		panic(err)
 	}
 	output.SetCellValue("Sheet1", "D22", zt.OrderCount)
+	output.SetCellValue("Sheet1", "X2", zt.OrderCount)
 	output.SetCellValue("Sheet1", "F22", zt.Total)
+	output.SetCellValue("Sheet1", "W2", zt.Total)
 	check := 0 - zt.Total
 
 	zt, err = ztotals.Get(99)
@@ -195,12 +201,14 @@ func main() {
 		panic(err)
 	}
 	output.SetCellValue("Sheet1", "F3", zt.Total)
+	output.SetCellValue("Sheet1", "H2", zt.Total)
 
 	zt, err = ztotals.Get(190)
 	if err != nil {
 		panic(err)
 	}
 	output.SetCellValue("Sheet1", "F4", zt.Total)
+	output.SetCellValue("Sheet1", "I2", zt.Total)
 
 	zt, err = ztotals.Get(79)
 	if err != nil {
@@ -224,14 +232,17 @@ func main() {
 
 	temp = TotalLunchEatIn(zitems, config.Exclusion.KeywordsFromEatin)
 	output.SetCellValue("Sheet1", "F8", temp)
+	output.SetCellValue("Sheet1", "J2", temp)
 	check += temp
 
 	temp = TotalDinnerEatIn(zitems, config.Exclusion.KeywordsFromEatin)
 	output.SetCellValue("Sheet1", "F9", temp)
+	output.SetCellValue("Sheet1", "L2", temp)
 	check += temp
 
 	temp = TotalWithKeywords(zitems, []string{"宴会"})
 	output.SetCellValue("Sheet1", "F10", temp)
+	output.SetCellValue("Sheet1", "N2", temp)
 	check += temp
 
 	temp = TotalWithKeywords(zitems, []string{"T テイク宴会", "Ｔ テイク宴会", "Tテイク宴会", "Ｔテイク宴会"})
@@ -240,6 +251,7 @@ func main() {
 
 	temp = TotalWithKeywords(zitems, []string{"法事"})
 	output.SetCellValue("Sheet1", "F12", temp)
+	output.SetCellValue("Sheet1", "P2", temp)
 	check += temp
 
 	temp = TotalWithKeywords(zitems, []string{"T テイク法事", "Ｔ テイク法事", "Tテイク法事", "Ｔテイク法事"})
@@ -248,6 +260,7 @@ func main() {
 
 	temp = TotalWithKeywords(zitems, []string{"葬儀"})
 	output.SetCellValue("Sheet1", "F14", temp)
+	output.SetCellValue("Sheet1", "R2", temp)
 	check += temp
 
 	temp = TotalWithKeywords(zitems, []string{"T テイク葬儀", "Ｔ テイク葬儀", "Tテイク葬儀", "Ｔテイク葬儀"})
@@ -259,6 +272,8 @@ func main() {
 		panic(err)
 	}
 	output.SetCellValue("Sheet1", "F16", zt.Total)
+	f16 := zt.Total
+	output.SetCellValue("Sheet1", "T2", zt.Total)
 	check += zt.Total
 
 	zt, err = ztotals.Get(306)
@@ -268,6 +283,8 @@ func main() {
 	temp = TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
 	temp = zt.Total - temp - f7
 	output.SetCellValue("Sheet1", "F17", temp)
+	output.SetCellValue("Sheet1", "U2", temp)
+	output.SetCellValue("Sheet1", "V2", f16+temp)
 	check += temp
 
 	output.SetCellValue("Sheet1", "F5", check)
