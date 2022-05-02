@@ -4,6 +4,7 @@ ztime = "data/ztime.csv"
 ztotal = "data/ztotal.csv"
 ttotal = "data/ttotal.csv"
 template = "template.xlsx"
+sheetname = "Sheet1"
 
 [exclusion]
 tables = [1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 16, 41, 42, 43, 44]
