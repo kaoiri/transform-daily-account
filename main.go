@@ -9,17 +9,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/xuri/excelize/v2"
 	"github.com/BurntSushi/toml"
+	"github.com/xuri/excelize/v2"
 )
 
 type Config struct {
 	Filename struct {
-		Zitem    string `toml:"zitem"`
-		Ztime    string `toml:"ztime"`
-		Ztotal   string `toml:"ztotal"`
-		Ttotal   string `toml:"ttotal"`
-		Template string `toml:"template"`
+		Zitem     string `toml:"zitem"`
+		Ztime     string `toml:"ztime"`
+		Ztotal    string `toml:"ztotal"`
+		Ttotal    string `toml:"ttotal"`
+		Template  string `toml:"template"`
 		SheetName string `toml:"sheetname"`
 	}
 	Exclusion struct {
@@ -35,11 +35,12 @@ func main() {
 		panic(err)
 	}
 	path := filepath.Dir(exe)
+
 	/*
-	path, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
+		path, err := os.Getwd()
+		if err != nil {
+			panic(err)
+		}
 	*/
 
 	var config Config
@@ -117,9 +118,7 @@ func main() {
 		panic(err)
 	}
 	output.SetCellValue(config.Filename.SheetName, "D22", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "X2", zt.OrderCount)
 	output.SetCellValue(config.Filename.SheetName, "F22", zt.Total)
-	output.SetCellValue(config.Filename.SheetName, "W2", zt.Total)
 	check := 0 - zt.Total
 
 	zt, err = ztotals.Get(99)
@@ -208,81 +207,70 @@ func main() {
 		panic(err)
 	}
 	output.SetCellValue(config.Filename.SheetName, "F3", zt.Total)
-	output.SetCellValue(config.Filename.SheetName, "H2", zt.Total)
 
 	zt, err = ztotals.Get(190)
 	if err != nil {
 		panic(err)
 	}
 	output.SetCellValue(config.Filename.SheetName, "F4", zt.Total)
-	output.SetCellValue(config.Filename.SheetName, "I2", zt.Total)
 
 	zt, err = ztotals.Get(79)
 	if err != nil {
 		panic(err)
 	}
 	output.SetCellValue(config.Filename.SheetName, "F6", zt.Total)
-	check += zt.Total
 
 	zt, err = ztotals.Get(307)
 	if err != nil {
 		panic(err)
 	}
 	temp := TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
-	temp = int32(math.Floor(float64(temp) / 13.5))
+	temp = int32(math.Round(float64(temp) / 13.5))
 	temp = zt.Total - temp
 	output.SetCellValue(config.Filename.SheetName, "F7", temp)
 	f7 := temp
-	check += temp
 
 	temp = TotalLunchEatIn(zitems, config.Exclusion.KeywordsFromEatin)
+	temp = int32(math.Round(float64(temp) * 1.1))
 	output.SetCellValue(config.Filename.SheetName, "F8", temp)
-	output.SetCellValue(config.Filename.SheetName, "J2", temp)
 	check += temp
 
 	temp = TotalDinnerEatIn(zitems, config.Exclusion.KeywordsFromEatin)
+	temp = int32(math.Round(float64(temp) * 1.1))
 	output.SetCellValue(config.Filename.SheetName, "F9", temp)
-	output.SetCellValue(config.Filename.SheetName, "L2", temp)
 	check += temp
 
-	temp = int32(math.Floor(float64(TotalWithKeywords(zitems, []string{"宴会"})) / 1.1))
+	temp = TotalWithKeywords(zitems, []string{"宴会"})
 	output.SetCellValue(config.Filename.SheetName, "F10", temp)
-	f10 := temp
 	check += temp
 
-	temp = int32(math.Floor(float64(TotalWithKeywords(zitems, []string{"T テイク宴会", "Ｔ テイク宴会", "Tテイク宴会", "Ｔテイク宴会"})) / 1.08))
+	temp = TotalWithKeywords(zitems, []string{"T テイク宴会", "Ｔ テイク宴会", "Tテイク宴会", "Ｔテイク宴会"})
 	output.SetCellValue(config.Filename.SheetName, "F11", temp)
-	output.SetCellValue(config.Filename.SheetName, "N2", f10 + temp)
 	check += temp
 
-	temp = int32(math.Floor(float64(TotalWithKeywords(zitems, []string{"法事"})) / 1.1))
+	temp = TotalWithKeywords(zitems, []string{"法事"})
 	output.SetCellValue(config.Filename.SheetName, "F12", temp)
-	f12 := temp
 	check += temp
 
-	temp = int32(math.Floor(float64(TotalWithKeywords(zitems, []string{"T テイク法事", "Ｔ テイク法事", "Tテイク法事", "Ｔテイク法事"})) / 1.08))
+	temp = TotalWithKeywords(zitems, []string{"T テイク法事", "Ｔ テイク法事", "Tテイク法事", "Ｔテイク法事"})
 	output.SetCellValue(config.Filename.SheetName, "F13", temp)
-	output.SetCellValue(config.Filename.SheetName, "P2", f12 + temp)
 	check += temp
 
-	temp = int32(math.Floor(float64(TotalWithKeywords(zitems, []string{"葬儀"})) / 1.1))
+	temp = TotalWithKeywords(zitems, []string{"葬儀"})
 	output.SetCellValue(config.Filename.SheetName, "F14", temp)
-	f14 := temp
 	check += temp
 
-	temp = int32(math.Floor(float64(TotalWithKeywords(zitems, []string{"T テイク葬儀", "Ｔ テイク葬儀", "Tテイク葬儀", "Ｔテイク葬儀"})) / 1.08))
+	temp = TotalWithKeywords(zitems, []string{"T テイク葬儀", "Ｔ テイク葬儀", "Tテイク葬儀", "Ｔテイク葬儀"})
 	output.SetCellValue(config.Filename.SheetName, "F15", temp)
-	output.SetCellValue(config.Filename.SheetName, "R2", f14 + temp)
 	check += temp
 
 	zt, err = ztotals.Get(304)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F16", zt.Total)
-	f16 := zt.Total
-	output.SetCellValue(config.Filename.SheetName, "T2", zt.Total)
-	check += zt.Total
+	temp = int32(math.Round(float64(zt.Total) * 1.08))
+	output.SetCellValue(config.Filename.SheetName, "F16", temp)
+	check += temp
 
 	zt, err = ztotals.Get(306)
 	if err != nil {
@@ -290,9 +278,8 @@ func main() {
 	}
 	temp = TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
 	temp = zt.Total - temp - f7
+	temp = int32(math.Round(float64(temp) * 1.08))
 	output.SetCellValue(config.Filename.SheetName, "F17", temp)
-	output.SetCellValue(config.Filename.SheetName, "U2", temp)
-	output.SetCellValue(config.Filename.SheetName, "V2", f16+temp)
 	check += temp
 
 	output.SetCellValue(config.Filename.SheetName, "F5", check)
@@ -302,7 +289,7 @@ func main() {
 		panic(err)
 	}
 
-	output.UpdateLinkedValue();
+	output.UpdateLinkedValue()
 
 	if err := output.SaveAs(filepath.Join(path, fmt.Sprintf("%s %s 日計.xlsx", date.Raw, storeName))); err != nil {
 		panic(err)
