@@ -76,149 +76,180 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "A3", zt.GuestCount)
+    a3 := zt.GuestCount;
+	output.SetCellValue(config.Filename.SheetName, "A3", a3)
 
 	orders := CountLunchOrder(ttotals, config.Exclusion.Tables)
-	output.SetCellValue(config.Filename.SheetName, "A8", orders)
-	output.SetCellValue(config.Filename.SheetName, "K2", orders)
+    a8 := orders
+	output.SetCellValue(config.Filename.SheetName, "A8", a8)
+	output.SetCellValue(config.Filename.SheetName, "K2", a8)
 	orders = CountDinnerOrder(ttotals, config.Exclusion.Tables)
-	output.SetCellValue(config.Filename.SheetName, "A9", orders)
-	output.SetCellValue(config.Filename.SheetName, "M2", orders)
+    a9 := orders
+	output.SetCellValue(config.Filename.SheetName, "A9", a9)
+	output.SetCellValue(config.Filename.SheetName, "M2", a9)
 
 	zt, err = ztotals.Get(112)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D18", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F18", zt.Total)
+    d18 := zt.OrderCount
+    f18 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D18", d18)
+	output.SetCellValue(config.Filename.SheetName, "F18", f18)
 
 	zt, err = ztotals.Get(113)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D19", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F19", zt.Total)
+    d19 := zt.OrderCount
+    f19 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D19", d19)
+	output.SetCellValue(config.Filename.SheetName, "F19", f19)
 
 	zt, err = ztotals.Get(114)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D20", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F20", zt.Total)
+    d20 := zt.OrderCount
+    f20 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D20", d20)
+	output.SetCellValue(config.Filename.SheetName, "F20", f20)
 
 	zt, err = ztotals.Get(116)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D21", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F21", zt.Total)
+    d21 := zt.OrderCount
+    f21 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D21", d21)
+	output.SetCellValue(config.Filename.SheetName, "F21", f21)
 
 	zt, err = ztotals.Get(48)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D22", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F22", zt.Total)
-	check := 0 - zt.Total
+    d22 := zt.OrderCount
+    f22 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D22", d22)
+	output.SetCellValue(config.Filename.SheetName, "F22", f22)
 
 	zt, err = ztotals.Get(99)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D23", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F23", zt.Total)
+    d23 := zt.OrderCount
+    f23 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D23", d23)
+	output.SetCellValue(config.Filename.SheetName, "F23", f23)
 
 	zt, err = ztotals.Get(84)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D24", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F24", zt.Total)
+    d24 := zt.OrderCount
+    f24 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D24", d24)
+	output.SetCellValue(config.Filename.SheetName, "F24", f24)
 
 	zt, err = ztotals.Get(134)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "D25", zt.OrderCount)
-	output.SetCellValue(config.Filename.SheetName, "F25", zt.Total)
+    d25 := zt.OrderCount
+    f25 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "D25", d25)
+	output.SetCellValue(config.Filename.SheetName, "F25", f25)
 
 	zt, err = ztotals.Get(151)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F26", zt.Total)
+    f26 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F26", f26)
 
 	zt, err = ztotals.Get(78)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F27", zt.Total)
+    f27 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F27", f27)
 
 	zt, err = ztotals.Get(300)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F28", zt.Total)
+    f28 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F28", f28)
 
 	zt, err = ztotals.Get(301)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F29", zt.Total)
+    f29 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F29", f29)
 
 	zt, err = ztotals.Get(302)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F30", zt.Total)
+    f30 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F30", f30)
 
 	zt, err = ztotals.Get(303)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F31", zt.Total)
+    f31 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F31", f31)
 
 	zt, err = ztotals.Get(304)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F32", zt.Total)
+    f32 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F32", f32)
 
 	zt, err = ztotals.Get(305)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F33", zt.Total)
+    f33 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F33", f33)
 
 	zt, err = ztotals.Get(306)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F34", zt.Total)
+    f34 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F34", f34)
 
 	zt, err = ztotals.Get(307)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F35", zt.Total)
+    f35 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F35", f35)
 
 	zt, err = ztotals.Get(46)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F3", zt.Total)
+    f3 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F3", f3)
 
 	zt, err = ztotals.Get(190)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F4", zt.Total)
+    f4 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F4", f4)
 
 	zt, err = ztotals.Get(79)
 	if err != nil {
 		panic(err)
 	}
-	output.SetCellValue(config.Filename.SheetName, "F6", zt.Total)
+    f6 := zt.Total
+	output.SetCellValue(config.Filename.SheetName, "F6", f6)
 
 	zt, err = ztotals.Get(307)
 	if err != nil {
@@ -226,51 +257,45 @@ func main() {
 	}
 	temp := TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
 	temp = int32(math.Round(float64(temp) / 13.5))
-	temp = zt.Total - temp
-	output.SetCellValue(config.Filename.SheetName, "F7", temp)
-	f7 := temp
+    f7 := zt.Total - temp
+	output.SetCellValue(config.Filename.SheetName, "F7", f7)
 
 	temp = TotalLunchEatIn(zitems, config.Exclusion.KeywordsFromEatin)
 	temp = int32(math.Round(float64(temp) * 1.1))
-	output.SetCellValue(config.Filename.SheetName, "F8", temp)
-	check += temp
+    f8 := temp
+	output.SetCellValue(config.Filename.SheetName, "F8", f8)
 
 	temp = TotalDinnerEatIn(zitems, config.Exclusion.KeywordsFromEatin)
 	temp = int32(math.Round(float64(temp) * 1.1))
-	output.SetCellValue(config.Filename.SheetName, "F9", temp)
-	check += temp
+    // f9 := temp
+    f9 := f28 + f29 - f8
+	output.SetCellValue(config.Filename.SheetName, "F9", f9)
 
-	temp = TotalWithKeywords(zitems, []string{"宴会"})
-	output.SetCellValue(config.Filename.SheetName, "F10", temp)
-	check += temp
+    f10 := TotalWithKeywords(zitems, []string{"宴会"})
+	output.SetCellValue(config.Filename.SheetName, "F10", f10)
 
-	temp = TotalWithKeywords(zitems, []string{"T テイク宴会", "Ｔ テイク宴会", "Tテイク宴会", "Ｔテイク宴会"})
-	output.SetCellValue(config.Filename.SheetName, "F11", temp)
-	check += temp
+    f11 := TotalWithKeywords(zitems, []string{"T テイク宴会", "Ｔ テイク宴会", "Tテイク宴会", "Ｔテイク宴会"})
+	output.SetCellValue(config.Filename.SheetName, "F11", f11)
 
-	temp = TotalWithKeywords(zitems, []string{"法事"})
-	output.SetCellValue(config.Filename.SheetName, "F12", temp)
-	check += temp
+    f12 := TotalWithKeywords(zitems, []string{"法事"})
+	output.SetCellValue(config.Filename.SheetName, "F12", f12)
 
-	temp = TotalWithKeywords(zitems, []string{"T テイク法事", "Ｔ テイク法事", "Tテイク法事", "Ｔテイク法事"})
-	output.SetCellValue(config.Filename.SheetName, "F13", temp)
-	check += temp
+    f13 := TotalWithKeywords(zitems, []string{"T テイク法事", "Ｔ テイク法事", "Tテイク法事", "Ｔテイク法事"})
+	output.SetCellValue(config.Filename.SheetName, "F13", f13)
 
-	temp = TotalWithKeywords(zitems, []string{"葬儀"})
-	output.SetCellValue(config.Filename.SheetName, "F14", temp)
-	check += temp
+    f14 := TotalWithKeywords(zitems, []string{"葬儀"})
+	output.SetCellValue(config.Filename.SheetName, "F14", f14)
 
-	temp = TotalWithKeywords(zitems, []string{"T テイク葬儀", "Ｔ テイク葬儀", "Tテイク葬儀", "Ｔテイク葬儀"})
-	output.SetCellValue(config.Filename.SheetName, "F15", temp)
-	check += temp
+    f15 := TotalWithKeywords(zitems, []string{"T テイク葬儀", "Ｔ テイク葬儀", "Tテイク葬儀", "Ｔテイク葬儀"})
+	output.SetCellValue(config.Filename.SheetName, "F15", f15)
 
 	zt, err = ztotals.Get(304)
 	if err != nil {
 		panic(err)
 	}
-	temp = int32(math.Round(float64(zt.Total) * 1.08))
-	output.SetCellValue(config.Filename.SheetName, "F16", temp)
-	check += temp
+    // f16 := int32(math.Round(float64(zt.Total) * 1.08))
+    f16 := f32 + f33
+	output.SetCellValue(config.Filename.SheetName, "F16", f16)
 
 	zt, err = ztotals.Get(306)
 	if err != nil {
@@ -279,8 +304,10 @@ func main() {
 	temp = TotalWithKeywords(zitems, config.Exclusion.KeywordsFromCatering)
 	temp = zt.Total - temp - f7
 	temp = int32(math.Round(float64(temp) * 1.08))
-	output.SetCellValue(config.Filename.SheetName, "F17", temp)
-	check += temp
+    f17 := temp
+	output.SetCellValue(config.Filename.SheetName, "F17", f17)
+
+    check := 0 - f22 + f8 + f9 + f10 + f11 + f12 + f13 + f14 + f15 + f16 + f17
 
 	output.SetCellValue(config.Filename.SheetName, "F5", check)
 
